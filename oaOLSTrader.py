@@ -75,7 +75,7 @@ class oaOLSTrader(tpqoa):
                                               units=self.units)
                         break
     
-    def on_success(self, time, bid, ask):
+    def on_success(self, time, bid, ask):
         ''' Method called when new data is retrieved. '''
         print('%3d | ' % self.ticks, time, bid, ask)  # print tick data as received
 
