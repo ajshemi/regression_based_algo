@@ -16,9 +16,6 @@ import pandas as pd
 from sklearn import linear_model
 from tpqoa import tpqoa
 
-# parameters for signal generation ("secret sauce")
-#reg = np.array([-0.02833527, -0.00774105, -0.00801869,  0.01874015,  0.00698399])
-
 
 class oaOLSTrader(tpqoa):
     def __init__(self, conf_file, lags, instrument, units):
@@ -101,10 +98,7 @@ class oaOLSTrader(tpqoa):
                                               units=self.units)
                         break
 
-    
-    
         
-
     def on_success(self, time, bid, ask):
         ''' Method called when new data is retrieved. '''
         print('%3d | ' % self.ticks, time, bid, ask)  # print tick data as received
