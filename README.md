@@ -8,4 +8,4 @@ This script uses linear regression for prediction.The linear regression model ca
 
 logregTrader.py  #python script#
 
-This script uses logistic regression for prediction. The logistic regression model is part of scikit learn machine learning in python. The features are created from the lag of returns. The lags of returns are then bucketize prior to fitting the model. The logistic regression model is updated cumulatively as streaming data is collected.The model and prediction is computed using a user-defined function/method.
+This script uses logistic regression for prediction. The logistic regression model is part of scikit learn machine learning in python. The features are created from the lag of returns. The lags of returns are then bucketize prior to fitting the model. The logistic regression model is updated cumulatively as streaming data is collected.The model and prediction is computed using a user-defined function/method (log_regression).
