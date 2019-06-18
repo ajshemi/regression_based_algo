@@ -1,5 +1,6 @@
 #
-# Modified by AJS. This script updates the regression parameters cumulatively
+# Modified by Akpojotor Shemi. This script updates the regression parameters cumulatively 
+#instead of using 'one' regression model previously determined 
 # Python Script
 # with OLS Regression-based Trading Class
 # for Oanda
@@ -9,10 +10,11 @@
 # The Python Quants GmbH
 #
 
+#import python and custom libraries
 import argparse
 import numpy as np
 import pandas as pd
-from tpqoa import tpqoa
+from tpqoa import tpqoa  #wrapper class that connect to the oanda trading platform API
 
 # parameters for signal generation ("secret sauce")
 #reg = np.array([-0.02833527, -0.00774105, -0.00801869,  0.01874015,  0.00698399])
@@ -37,7 +39,7 @@ class oaOLSTrader(tpqoa):
             self.resam[col] = self.resam['returns'].shift(lag)
             self.cols.append(col)
 
-    def ols_regression(self):
+    def ols_regression(self): #function that calculate the regression model, prediction
         self.create_lags()
         self.resam.dropna(inplace=True)
         self.regr=np.linalg.lstsq(self.resam[self.cols],\
@@ -86,12 +88,13 @@ class oaOLSTrader(tpqoa):
 
         # resampling the tick data to a homogeneous time interval
         self.resam = self.data.resample('10s', label='right').last().ffill()
-
+        
+        #once a enough data is collected then do this
         if len(self.resam) > self.int_length:
             self.int_length = len(self.resam)
             self.resam['returns'] = np.log(self.resam['mid'] /
                                            self.resam['mid'].shift(1))
-            self.ols_regression()
+            self.ols_regression() #call on the regression function after a minimum data is collected and updates model cumulatively
             if len(self.resam)%5==0:
                 print('\ninterval length %d\n' % self.int_length)
                 print(self.resam[['bid','ask','mid', 'position','returns']].tail())
