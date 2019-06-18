@@ -1,5 +1,5 @@
 #
-# Modified by AJS. This script updates the log regression parameters cumulatively
+# Modified by Akpojotor Shemi. This script updates the log regression parameters cumulatively
 
 # Python Script
 # with log Regression-based Trading Class
@@ -10,10 +10,11 @@
 # The Python Quants GmbH
 #
 
+#import python and custom libraries
 import argparse
 import numpy as np
 import pandas as pd
-from sklearn import linear_model
+from sklearn import linear_model #scikit learn machine learning in python
 from tpqoa import tpqoa
 
 
@@ -27,7 +28,7 @@ class oaOLSTrader(tpqoa):
         self.units = units
         self.int_length = self.lags + 5
     
-    def create_lags(self):
+    def create_lags(self): #create lags otherwise known as features
         ''' Creates return lags in the resampled DataFrame object. '''
         self.cols = []
         #self.cols.append('returns')
@@ -43,6 +44,7 @@ class oaOLSTrader(tpqoa):
         mean=self.resam['returns'].mean()
         std=self.resam['returns'].std()
         
+        #function to bucketize data
         def buckets(x):
             v=0
             for b in [mean-std,mean-std/2,mean,mean+std/2,mean+std]:
